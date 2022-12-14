@@ -173,6 +173,16 @@ echo $salut;
 $uneVariable = 15;
 if(isset($uneVariable))
         {
-                echo " cette variable exite et elle vaut $uneVariable";
+                echo " cette variable exite et elle vaut $uneVariable ";
         }
+$res = $uneVariable ?? "elle n'existe pas"; // si "$uneVariable" exite alors "$res" prend sa valeur sinon elle prend la chaine de caractere suivant;
+echo $res;
+
+/*
+        les fonctions qui verifient les types:
+                is_int(): si c'est un entier;
+                is_bool(): .... booleen;
+                is_float(): .... reel;
+                is_string(): ... chaine;
+*/
 ?>

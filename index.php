@@ -155,8 +155,11 @@ echo $salut;
 <?php
 /*
         les principales conditions:
-                if:
-                :
+                if;
+                else;
+                elseif;
+                switch - case - default et break;
+                le ternaire: $nomVar = (condition) ? "valeur1 si c vrai" : " valeur2 si c faux"
         les operateurs de comparaison:
                 egalite: ==
                 meme valeur et meme type: ===
@@ -167,5 +170,9 @@ echo $salut;
                 superieur, ou egal, ou inferieur: <=> (resultat possible : -1, 0, 1)
 
 */
-
+$uneVariable = 15;
+if(isset($uneVariable))
+        {
+                echo " cette variable exite et elle vaut $uneVariable";
+        }
 ?>

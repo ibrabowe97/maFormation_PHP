@@ -186,3 +186,152 @@ echo $res;
                 is_string(): ... chaine;
 */
 ?>
+
+<h2><br>les boucles</h2>
+<?php
+/*
+        while: tant qu'une condition est resplie, on execute l'instruction suivante;
+        do -- while:
+        for;
+*/
+
+
+$number1 = 20;
+echo"la boucle \"While\" <br>";
+while($number1 < 22)
+{
+        echo "$number1 ";
+        $number1++;
+
+}
+echo"<br>la boucle \"do..While\" <br>";
+do{
+        echo "$number1 ";
+        $number1++;
+
+}while($number1 <25);
+
+echo"<br>la boucle \"for\" <br>";
+$i = 0;
+
+for($i = 0; $i < 5; $i++)
+{
+        
+        echo"vous utilisez la boucle for !!!<br>";
+        break;
+}
+
+echo"<br>la boucle \"foreach\" <br>";
+
+
+echo"foreach est bcp plus utiliser avec les tableau 
+elle veut dire : pour chaque element";
+
+echo"<br>la boucle \"switch\" <br>";
+
+$choix = 15;
+switch($choix)
+{
+        case 10:
+                echo"MERCI";
+                BREAK; // pour s'arreter
+        case 15:
+                echo"Bienvenue...";
+                continue; // pour continuer
+        case 16:
+        ECHO "HOOOOOPPP";
+                BREAK;
+        default:
+                echo"ohheee"; 
+}
+
+?>
+
+<h2>les fonctions</h2>
+<?php
+/*
+        les fontions : c'est comme une boite qui contient plusieurs lignes de code et votre fichier est un contexte donc elle contient plusieurs contexte;
+
+        les fonctions:
+                ont un nom;
+                peuvent avoir des arguments ou parametres;
+                peuvent retourner un resultat;
+
+                les types pour les parametres: array, callable, int, float, string, bool; comme sa on definit la valeur qu'il doit prendre 
+
+
+        syntaxe de creation:
+                function nomFonction(arguments_si_necessaire)
+                {
+                        //instrucitons...
+                }
+*/
+        $number=29;
+        echo gettype($number);
+        echo "<br>";
+        echo var_dump($number);
+
+        function hello($name = "Ibrahima") // une fonction avec un argument defini en defaut;
+        {       
+                echo "<br>";
+                echo "Hello ".$name;
+                echo "<br>";
+
+        }
+        hello("tidiane");
+        function calcul($n, $m)
+        {
+                return $n * $m;
+        }
+        echo calcul(23,2);
+
+        // passage par reference : &
+        function pointeur(&$chiffre)
+        {
+                $chiffre =23;
+        }
+        echo "<br>";
+
+        $nombre =10;
+        pointeur($nombre);
+        echo $nombre;
+// pour les parametres, il faut toujours mettre ceux qui sont obligatoirs en premiers 
+       function maFonction(int $var1, float $var2, float  $d = 2.4)
+       {
+        return ($var1 * $var2) / $d;
+       }
+       echo maFonction(12, 2.5, 12);
+// envoyer un nombre infini de parametres:
+
+       function fonctionInfini(...$bcpDeVariables) // parametres infinis;
+       {
+        foreach($bcpDeVariables as $data)
+                echo " $data";
+       }
+       echo "<br>";
+       fonctionInfini(1, 2);
+// definir un type de retour pour la fonction :
+       function nomFonction($parametre): int
+       {
+                
+
+                return $parametre**2;
+       }
+       echo "<br>";
+       //echo gettype(nomFonction(7));
+
+
+// astuce : 
+       $var = "nomFonction";
+       echo $var(2); // ceci equivaut a nomFonction();
+
+// fonction anonyme: une fonction sans nom. Elle sera donc envoyer a une variable avec une virgule a la fin;
+       $coucou= function()
+       {
+        echo "bonjour";
+       };
+       $coucou();
+
+
+
+?>

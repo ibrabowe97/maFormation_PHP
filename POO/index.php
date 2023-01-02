@@ -10,7 +10,12 @@
     creation d'une classe :
         class NomClass {} (avec des majuscules a chaque debut de mot et au debut du nom de la classe);
     creation d'un objet:
-        $nomObjet = new NomClass();
+        methode standard :
+            $nomObjet = new NomClass();
+
+        methode speciale php:
+            $nom = 'NomClass';
+            $nomObjet = new $nom(); 
     
     fonction de construction et destruction : 
     public function _construct()
@@ -38,3 +43,5 @@
     }
     $obj1 = new Vehicle();
     $obj2 = new Vehicle(); 
+    $nom = "Vehicle";
+    $obj3 = new $nom();

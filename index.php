@@ -1,5 +1,14 @@
+<?php
+        setcookie("lang", "en", time()+ 3600 * 24 * 5, null, null, false, true);
+        
+        /*
+                creer un cookie -> setcookie();
+                manipuler un cookie -> $_COOKIE["nomCookie"];
+
+        */
+?>
 <h1>Formation Langage PHP</h1>
-<h2>affichage</h2>
+<h2>affichage <?= htmlspecialchars($_COOKIE['lang']) ?></h2>
 <?= "bonjour" ?><br> <!-- php et html melanger -->
 <?php
 error_reporting(-1);
@@ -314,8 +323,6 @@ switch($choix)
 // definir un type de retour pour la fonction :
        function nomFonction($parametre): int
        {
-                
-
                 return $parametre**2;
        }
        echo "<br>";
@@ -355,7 +362,7 @@ switch($choix)
 */
 
 $monTableau=
-        [       date("d-m-y"),
+        [      1 => date("d-m-y"),
                 10, 
                 "tableau" => ["bonjour", "mon tableau", "aurevoir"],
                 20, 
@@ -370,15 +377,15 @@ $monTableau=
         echo "<br>";
         //echo print_r($monTableau ["tableau"]);
         //echo sizeof($monTableau);
-        echo array_key_first($monTableau);
+        echo array_key_first($monTableau); // afficher le premier index du tableau.
 
         
 
 // parcourir un tableau: il faut toujours utiliser la boucle "foreach"
-        foreach ($monTableau as $key => $value) // pour chaque "cle" on affiche sa "valeur"
-        {
-                echo "<p>[$key] = $value</p>";
-        }
+        // foreach ($monTableau as $key => $value) // pour chaque "cle" on affiche sa "valeur"
+        // {
+        //         echo "<p>[$key] = $value</p>";
+        // }
 // quelques fonctions utiles:
 
         echo "</pre>";
@@ -466,7 +473,7 @@ syntaxe de creation d'une fonction d'error_handler:
 <h2>les systemes de Log</h2>
 <?php
 error_reporting(-1);
-ini_set("display_errors", 1);
+ini_set("display_errors", 0);
 restore_error_handler();
 //set_error_handler();
 
@@ -481,6 +488,142 @@ restore_error_handler();
         */
 
 ?>
+
+<h2>Les fichiers</h2>
+<?php
+/*
+        Les fichiers nous permettent de stocker des donnees;
+                on peut ecrire: r (lire), r+(lire et ecrire): en debut de fichier. le fichier doit exister au prealable
+
+                        lire: w (ecriture seule), w+ (lecture et ecriture)
+                        ajout: a, a+;
+
+                        en binaire: ab, ab+ (b -> pour binaire);
+                les retours a la ligne:
+                        windows: \r\n
+                        Linux: \n
+                        mac : \r
+
+                on peut lire avec les fonctions/primitives suivantes:
+                        fgetc() -> un seul caractere;
+                        fgets() -> une ligne a la fois; on peut preciser une taille en 2e param.
+                        fread() -> lire en mode binaire. il faut preciser une valeur pour s'arreter. 
+                        file() -> pour un affichage indexer comme un tableau;
+                        file_get_contents() -> une chaine;
+
+                on peut ecrire avec les fonctions suivantes:
+                        fwrite() -> ecrire, on peut passer le nbr de caractere a ecrire en 3e param.
+                        fputs() -> Alias de fwrite();
+*/
+
+        $fichier = fopen("infos.txt", "ab+");
+
+        if(is_writable("infos.txt")) echo "oui";
+        else echo "non";
+        // print_r (dirname("infos.txt"));
+        if(!$fichier) exit("erreur d'ouverture ");
+        else 
+        {
+                echo "Ouverture reussi\r";
+                fputs($fichier, "bonjour\r");
+        }
+        while(!feof($fichier))  
+        {
+                echo (fgets($fichier, "10"));
+        }
+
+        if(!fclose($fichier)) exit("erreur de fermeture");
+        else {
+                echo "fermeture reussie";
+        }
+        // $unfichier = fopen("text.txt", "w");
+        // if($unfichier)
+        // {
+        //         fputs($unfichier, " ma phrase de test");
+        // }
+        // if(!fclose($unfichier))
+        // {
+        //         exit("erreur de fermeture");        
+        // }
+?>
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta charset="utf-8" />
+                <title>les formulaires</title>
+        </head>
+        <body>
+                <h2>Les formulaires</h2>
+                <form method="post" action="result.php">
+                        <fieldset>
+                                <p><label for="iduser"> Utilisateur: </label>
+                                        <input type="text" id="iduser" name="user" placeholder="saisissez votre nom"> </p>
+                                <p><label for="idchoice">choix : 
+                                        <input type="radio" name="choix" id="idchoice" value="oui">oui
+                                        <input type="radio" name="choix" id="idchoice" value="non">non</p></label>
+                                <p>
+                                        <input type="submit" name="valid_form" value="valider">
+                                </p>
+                        </fieldset>
+                        <fieldset>
+                                <p>
+                                        <label for="idmetier"> Travail :
+                                        <input type="text" name="metier" placeholder="saisissez votre job" id="idmetier">
+                                        </label>
+                                </p>
+                        </fieldset>
+                </form>
+                <h2>la programmation modulaire</h2>
+                <fieldset>
+                        <p>Nous allons travailler sur plusieurs fichiers</p>
+                        <ol>
+                                <li>include -> est une instruction et non une fonction.  </li>
+                                <li>include_once -> pareille que include, c'est une insstructions. elle evite d'inclure un fichier deux fois</li>
+                                <li>require -> meme principe que include mais Elle declenche une erreur fatale si le fichier a deja ete inclu. ELle est utilisee quand le fichier est indispensable par exemple</li>
+                                <li>require_once -> comme include_once. </li>
+
+                        </ol>
+                </fieldset>
+
+                <h2>les cookies en php</h2>
+                <p>on ne stocke que des donnees non sensibles dans un cookies</p>
+
+                <h3>creation d'un cookies</h3>
+                <ol>
+                        <li>
+                                ecrire la fonction "setcookie()" juste apres la balise php sans espace.
+                        </li>
+                        <li>appelez la fonction avant tout autre code (php ou html) </li>
+                        <li>definir ces parametres: nom du cookie, valeur du cookie, le temps avant expiration avec la fonction time(), ensuite le chemin (null comme valeur defaut), le nom de domaine (null -> defaut), securiser (false ou true), disponible en https pour empecher l'accees via JavaScript (false ou true), </li>
+                </ol>
+        </body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
